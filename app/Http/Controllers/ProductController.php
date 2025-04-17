@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Product;
 use App\Models\Category;
 use App\Models\Brand;
-
+use App\Helpers\Helper;
 use Illuminate\Support\Str;
 
 class ProductController extends Controller
@@ -152,6 +152,40 @@ class ProductController extends Controller
 
         return redirect()->route('product.index')->with(
             $status ? 'success' : 'error',
+            $message
+        );
+    }
+
+    /**
+     * Copy the specified resource from storage.
+     *
+     * @param  int  $id
+     * @return \Illuminate\Http\Response
+     */
+    public function copy($id)
+    {
+        $product = Product::findOrFail($id);
+        // $this->pr($product);
+        // exit;
+
+        $newProductData = $product->toArray();
+        // $this->pr($newProductData);
+        // exit;
+        unset($newProductData['id']);
+        // unset($newProductData['slug']);
+
+
+        $slug = $this->generateUniqueSlug($product->title, Product::class);
+        $newProductData['slug'] = $slug;
+
+        $newProduct = Product::create($newProductData);
+
+        $message = $newProduct
+            ? 'Product Duplicated Successfully'
+            : 'Please try again!!';
+
+        return redirect()->route('product.index')->with(
+            $newProduct ? 'success' : 'error',
             $message
         );
     }

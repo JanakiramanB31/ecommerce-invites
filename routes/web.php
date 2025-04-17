@@ -148,6 +148,7 @@
         Route::resource('/category', 'CategoryController');
         // Product
         Route::resource('/product', 'ProductController');
+        Route::post('/product/{id}/copy', 'ProductController@copy')->name('product.copy');
         // Ajax for sub category
         Route::post('/category/{id}/child', 'CategoryController@getChildByParent');
         // POST category
