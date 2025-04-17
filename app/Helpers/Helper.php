@@ -1,5 +1,5 @@
 <?php
-
+namespace App\Helpers;
 use App\Models\Message;
 use App\Models\Category;
 use App\Models\PostTag;
