@@ -1,3 +1,7 @@
+@php
+use App\Helpers\Helper;
+// Now use Helper::method()
+@endphp
 <div id="messages">
     <a class="nav-link dropdown-toggle" href="#" id="messagesDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
         <i class="fas fa-envelope fa-fw"></i>

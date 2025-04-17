@@ -1,3 +1,7 @@
+@php
+use App\Helpers\Helper;
+// Now use Helper::method()
+@endphp
 <header class="header shop">
   <!-- Topbar -->
   <div class="topbar">
@@ -74,6 +78,7 @@
             <div class="search-bar">
               <select>
                 <option>All Category</option>
+                
                 @foreach(Helper::getAllCategory() as $cat)
                 <option>{{$cat->title}}</option>
                 @endforeach
