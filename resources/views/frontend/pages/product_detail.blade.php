@@ -625,7 +625,7 @@
 
 				
     </script> --}}
-		<script>
+		<!-- <script>
 			$(document).ready(function() {
         // Initialize zoom only for the first image;
 				
@@ -635,6 +635,6 @@
             lensSize: 200
         });
     });
-		</script>
+		</script> -->
 
 @endpush
