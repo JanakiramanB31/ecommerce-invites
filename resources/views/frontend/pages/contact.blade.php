@@ -1,4 +1,5 @@
 @extends('frontend.layouts.master')
+@section('title', config('app.name', 'SHOPPING') . ' || Contact Us')
 
 @section('main-content')
 	<!-- Breadcrumbs -->
@@ -30,7 +31,7 @@
 										$settings=DB::table('settings')->get();
 									@endphp
 									<h4>Get in touch</h4>
-									<h3>Write us a message @auth @else<span style="font-size:12px;" class="text-danger">[You need to login first]</span>@endauth</h3>
+									<h3>Write us a message @auth @else<span style="font-size:12px;" class="text-danger"></span>@endauth</h3>
 								</div>
 								<form class="form-contact form contact_form" method="post" action="{{route('contact.store')}}" id="contactForm" novalidate="novalidate">
 									@csrf
@@ -43,7 +44,7 @@
 										</div>
 										<div class="col-lg-6 col-12">
 											<div class="form-group">
-												<label>Your Subjects<span>*</span></label>
+												<label>Your Subject<span>*</span></label>
 												<input name="subject" type="text" id="subject" placeholder="Enter Subject">
 											</div>
 										</div>
@@ -61,7 +62,7 @@
 										</div>
 										<div class="col-12">
 											<div class="form-group message">
-												<label>your message<span>*</span></label>
+												<label>Your message<span>*</span></label>
 												<textarea name="message" id="message" cols="30" rows="9" placeholder="Enter Message"></textarea>
 											</div>
 										</div>
@@ -94,7 +95,7 @@
 									<i class="fa fa-location-arrow"></i>
 									<h4 class="title">Our Address:</h4>
 									<ul>
-										<li>@foreach($settings as $data) {{$data->address}} @endforeach</li>
+										<li>@foreach($settings as $data) {!! $data->address !!} @endforeach</li>
 									</ul>
 								</div>
 							</div>
@@ -108,13 +109,14 @@
 	<!-- Map Section -->
 	<div class="map-section">
 		<div id="myMap">
-			<iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14130.857353934944!2d85.36529494999999!3d27.6952226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sne!2snp!4v1595323330171!5m2!1sne!2snp" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
+			<!-- <iframe src="https://www.google.com/maps/embed?pb=!1m14!1m12!1m3!1d14130.857353934944!2d85.36529494999999!3d27.6952226!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!5e0!3m2!1sne!2snp!4v1595323330171!5m2!1sne!2snp" width="100%" height="100%" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe> -->
+				<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3885.554569925531!2d80.2415552751986!3d13.127380411443495!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3a5265081adf633d%3A0x3a82b8bfb15fbf4f!2sLakshana%20Cards!5e0!3m2!1sen!2sin!4v1745391709032!5m2!1sen!2sin" width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
 		</div>
 	</div>
 	<!--/ End Map Section -->
 	
 	<!-- Start Shop Newsletter  -->
-	@include('frontend.layouts.newsletter')
+	{{-- @include('frontend.layouts.newsletter') --}}
 	<!-- End Shop Newsletter -->
 	<!--================Contact Success  =================-->
 	<div class="modal fade" id="success" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">

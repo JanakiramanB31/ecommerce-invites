@@ -79,7 +79,7 @@
             @endforeach
           </tbody>
         </table>
-        <span style="float:right">{{$shippings->links()}}</span>
+        <span style="float:right">{{$shippings->links('pagination::bootstrap-4')}}</span>
         @else
           <h6 class="text-center">No shippings found!!! Please create shipping</h6>
         @endif

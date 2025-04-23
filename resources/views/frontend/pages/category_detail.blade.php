@@ -13,7 +13,7 @@
 <meta property="og:image" content="{{$category_detail->photo}}">
 <meta property="og:description" content="{{$category_detail->summary}}">
 @endsection
-@section('title','LAKSHANA CARDS || CATEGORY DETAILS')
+@section('title','LAKSHANA CARDS || Category Details')
 @section('main-content')
 
 <!-- Breadcrumbs -->
