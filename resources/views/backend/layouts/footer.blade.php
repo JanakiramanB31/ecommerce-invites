@@ -4,6 +4,7 @@
         <div class="container my-auto">
           <div class="copyright text-center my-auto">
             <span>Copyright &copy; Lakshana Cards <!-- <a href="https://github.com/Prajwal100" target="_blank">Lakshana Cards</a> --> {{date('Y')}}</span>
+
           </div>
         </div>
       </footer>

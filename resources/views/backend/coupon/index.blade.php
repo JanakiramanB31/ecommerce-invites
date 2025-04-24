@@ -93,7 +93,7 @@
             @endforeach
           </tbody>
         </table>
-        <span style="float:right">{{$coupons->links()}}</span>
+        <span style="float:right">{{$coupons->links('pagination::bootstrap-4')}}</span>
         @else
           <h6 class="text-center">No Coupon found!!! Please create coupon</h6>
         @endif

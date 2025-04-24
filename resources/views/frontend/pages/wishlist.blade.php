@@ -1,5 +1,5 @@
 @extends('frontend.layouts.master')
-@section('title','Wishlist Page')
+\@section('title', config('app.name', 'SHOPPING') . ' || Wishlist Page')
 @section('main-content')
 	<!-- Breadcrumbs -->
 	<div class="breadcrumbs">

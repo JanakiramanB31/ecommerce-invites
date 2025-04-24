@@ -1,6 +1,6 @@
 @extends('frontend.layouts.master')
 
-@section('title','Checkout page')
+@section('title', config('app.name', 'SHOPPING') . ' || Checkout Page')
 
 @section('main-content')
 

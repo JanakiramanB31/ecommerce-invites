@@ -59,7 +59,7 @@
             @endforeach
           </tbody>
         </table>
-        <span style="float:right">{{$postTags->links()}}</span>
+        <span style="float:right">{{$postTags->links('pagination::bootstrap-4')}}</span>
         @else
           <h6 class="text-center">No Post Tag found!!! Please create post tag</h6>
         @endif

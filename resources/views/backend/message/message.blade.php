@@ -61,7 +61,7 @@ use App\Helpers\Helper;
 <script type="text/javascript">
   $(document).ready(function() {
 
-    Echo.channel('message')
+    /*Echo.channel('message')
       .listen('MessageSent', (e) => {
 
       const message_container = $('#message-items');
@@ -92,7 +92,7 @@ use App\Helpers\Helper;
 
       if(message_length>=5) $(message_container).find('.message-item').last().remove();
 
-    });
+    });*/
 
   });
 </script>
