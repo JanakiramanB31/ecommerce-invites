@@ -72,7 +72,7 @@
 				<div class="inner">
 					<div class="row">
 						<div class="col-12 text-align-center" style="text-align: center;">
-								<p>Copyright © {{date('Y')}} <!-- <a href="#">Lakshana Cards</a> -->  -  All Rights Reserved.</p>
+								<p>Copyright © Lakshana Cards {{date('Y')}} <!-- <a href="#">Lakshana Cards</a> -->  -  All Rights Reserved.</p>
 						</div>
 						<!-- <div class="col-lg-6 col-12">
 							<div class="right">

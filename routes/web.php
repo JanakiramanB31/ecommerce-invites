@@ -16,6 +16,8 @@
     use App\Http\Controllers\PayPalController;
     use App\Http\Controllers\NotificationController;
     use App\Http\Controllers\HomeController;
+    use App\Http\Controllers\ProductController;
+
     use \UniSharp\LaravelFilemanager\Lfm;
     use App\Http\Controllers\Auth\ResetPasswordController;
     /*
@@ -148,7 +150,10 @@
         Route::resource('/category', 'CategoryController');
         // Product
         Route::resource('/product', 'ProductController');
-        Route::post('/product/{id}/copy', 'ProductController@copy')->name('product.copy');
+        Route::post('/product/uploadcsvdata', 'ProductController@uploadcsvdata')->name('product.uploadcsvdata');
+        Route::post('/product/{id}/duplicate', 'ProductController@duplicate')->name('product.duplicate');
+        Route::get('/product/{id}/copy', 'ProductController@copy')->name('product.copy');
+        Route::post('/product/{id}/copy', 'ProductController@duplicate_entry')->name('product.duplicate_entry');
         // Ajax for sub category
         Route::post('/category/{id}/child', 'CategoryController@getChildByParent');
         // POST category

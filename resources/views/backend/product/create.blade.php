@@ -172,8 +172,8 @@
     $(document).ready(function() {
       $('#description').summernote({
         placeholder: "Write detail description.....",
-          tabsize: 2,
-          height: 150
+        tabsize: 2,
+        height: 150,
       });
     });
     // $('select').selectpicker();

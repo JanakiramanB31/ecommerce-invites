@@ -44,7 +44,7 @@ class BannerController extends Controller
             'status' => 'required|in:active,inactive',
         ]);
 
-        $slug = $this->generateUniqueSlug($request->title);
+        $slug = $this->generateUniqueSlug($request->title, Banner::class);
         $validatedData['slug'] = $slug;
 
         $banner = Banner::create($validatedData);
@@ -139,15 +139,15 @@ class BannerController extends Controller
      * @param  string  $title
      * @return string
      */
-    private function generateUniqueSlug($title)
-    {
-        $slug = Str::slug($title);
-        $count = Banner::where('slug', $slug)->count();
+    // private function generateUniqueSlug($title)
+    // {
+    //     $slug = Str::slug($title);
+    //     $count = Banner::where('slug', $slug)->count();
 
-        if ($count > 0) {
-            $slug = $slug . '-' . date('ymdis') . '-' . rand(0, 999);
-        }
+    //     if ($count > 0) {
+    //         $slug = $slug . '-' . date('ymdis') . '-' . rand(0, 999);
+    //     }
 
-        return $slug;
-    }
+    //     return $slug;
+    // }
 }
