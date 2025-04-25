@@ -8,6 +8,8 @@ use App\Models\Category;
 use App\Models\Brand;
 use App\Helpers\Helper;
 use Illuminate\Support\Str;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
 
 class ProductController extends Controller
 {
@@ -19,28 +21,128 @@ class ProductController extends Controller
   public function index()
   {
     $products = Product::getAllProduct();
+    return view('backend.product.index', compact('products'));
+  }
+
+  /**
+   * Display a listing of the resource.
+   *
+   * @return \Illuminate\Http\Response
+  */
+  public function uploadcsv()
+  {
+    $products = Product::getAllProduct();
     return view('backend.product.upload', compact('products'));
   }
 
   public function uploadcsvdata(Request $request)
   {
-    $file = $request->file('csv')->getRealPath();
-    echo $file;
-    exit;
+    $csvPath = $request->input('csv');
+    $fullPath = public_path($csvPath);
 
-    if (($handle = fopen($file, 'r')) !== false) {
-        $header = fgetcsv($handle); // read first row as header
+    echo $fullPath;
+    // exit;
 
-        while (($row = fgetcsv($handle)) !== false) {
-            // Assume CSV columns are in order: name, email, age
-            $this->pr($row);
-            exit;
+    $brands = Brand::select('id', 'title')->get();
+    $parentCategories = Category::select('id', 'title')->where('is_parent', 1)->get();
+    $childCategories = Category::select('id', 'title', 'parent_id')->where('is_parent', 0)->get();
+
+
+    if (($fileData = fopen($fullPath, 'r')) !== false) {
+      $header = fgetcsv($fileData); // read first row as header
+      $this->pr($header);
+      while (($row = fgetcsv($fileData)) !== false) {
+
+        $parentCat = collect($parentCategories)->first(function ($item) use ($row) {
+          return Str::of($item['title'])->lower()->trim() == Str::of($row[4])->lower()->trim();
+        })['id'] ?? null;
+
+        $childCat = collect($childCategories)->first(function ($item) use ($row) {
+          return Str::of($item['title'])->lower()->trim() == Str::of($row[5])->lower()->trim();
+        })['id'] ?? null;
+        $this->pr($row);
+
+        $brand = collect($brands)->first(function ($item) use ($row) {
+          return Str::of($item['title'])->lower()->trim() == Str::of($row[9])->lower()->trim();
+        })['id'] ?? null;
+
+        $size = str_replace(['[', ']','"'], '', $row[8]); 
+        $sizes = explode('|', $size);
+        $status = Str::of($row[12])->lower()->trim()->toString();
+        $condition = Str::of($row[10])->lower()->trim()->toString();
+
+        $data = [
+          'title' => $row[0],
+          'summary' => $row[1],
+          'description' => $row[2],
+          'size' => $sizes,
+          'stock' => $row[11],
+          'cat_id' => $parentCat,
+          'brand_id' => $brand,
+          'child_cat_id' => $childCat,
+          'is_featured' => $row[3],
+          'status' => $status,
+          'condition' => $condition,
+          'price' => $row[6],
+          'discount' => $row[7],
+        ];
+
+        $rules = [
+          'title' => 'required|string',
+          'summary' => 'required|string',
+          'description' => 'nullable|string',
+          'size' => 'nullable',
+          'stock' => 'required|numeric',
+          'cat_id' => 'required|exists:categories,id',
+          'brand_id' => 'nullable|exists:brands,id',
+          'child_cat_id' => 'nullable|exists:categories,id',
+          'is_featured' => 'sometimes|in:1',
+          'status' => 'required|in:active,inactive',
+          'condition' => 'required|in:default,new,hot',
+          'price' => 'required|numeric',
+          'discount' => 'nullable|numeric',
+        ];
+
+        // Validate the data
+        $validator = Validator::make($data, $rules);
+
+        if ($validator->fails()) {
+          $errors = $validator->errors();
+          $this->pr($errors);
+        exit;
+          return redirect()->route('product.uploadcsv')->withErrors($errors)->withInput();
         }
 
-        fclose($handle);
-    }
 
-    return 'Import done!';
+        $slug = $this->generateUniqueSlug($data['title'], Product::class);
+        echo $data['slug'] = $slug;
+
+        if (isset($data['size'])) {
+          $data['size'] = implode(',', $data['size']);
+        } else {
+          $data['size'] = '';
+        }
+
+        $product = $data;
+        $this->pr($product);
+        // exit;
+      $product = Product::create($data);
+
+      $message = $product
+          ? 'Product Successfully added'
+          : 'Please try again!!';
+
+      return redirect()->route('product.index')->with(
+          $product ? 'success' : 'error',
+          $message
+      );
+
+      }
+
+      fclose($fileData);
+    }
+    exit;
+    return redirect()->back()->with('success', 'CSV data imported successfully.');
   }
 
   /**
@@ -63,6 +165,9 @@ class ProductController extends Controller
   */
   public function store(Request $request)
   {
+
+    $this->pr($request->all());
+    exit;
       $validatedData = $request->validate([
           'title' => 'required|string',
           'summary' => 'required|string',

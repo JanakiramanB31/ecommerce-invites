@@ -5,7 +5,7 @@
 <div class="card">
     <h5 class="card-header">Add Products Via Files(.csv)</h5>
     <div class="card-body">
-      <form method="post" action="{{route('product.uploadcsvdata')}}">
+      <form method="post" action="{{route('product.uploadcsvdata')}}" enctype="multipart/form-data">
         {{csrf_field()}}
 
         <div class="form-group">

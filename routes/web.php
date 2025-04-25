@@ -149,6 +149,7 @@
         // Category
         Route::resource('/category', 'CategoryController');
         // Product
+        Route::get('/product/uploadcsv', 'ProductController@uploadcsv')->name('product.uploadcsv');
         Route::resource('/product', 'ProductController');
         Route::post('/product/uploadcsvdata', 'ProductController@uploadcsvdata')->name('product.uploadcsvdata');
         Route::post('/product/{id}/duplicate', 'ProductController@duplicate')->name('product.duplicate');
