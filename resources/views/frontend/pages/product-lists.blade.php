@@ -1,5 +1,13 @@
 @extends('frontend.layouts.master')
 
+@section('meta')
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name='copyright' content=''>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+@endsection
+
 @section('title', config('app.name', 'SHOPPING') . ' || Products')
 
 @section('main-content')
@@ -12,7 +20,7 @@
 				<div class="bread-inner">
 					<ul class="bread-list">
 						<li><a href="{{route('home')}}">Home<i class="ti-arrow-right"></i></a></li>
-						<li class="active"><a href="javascript:void(0);">Shop List</a></li>
+						<li class="active"><a href="javascript:void(0);">Product List</a></li>
 					</ul>
 				</div>
 			</div>
